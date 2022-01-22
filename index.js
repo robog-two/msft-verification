@@ -117,11 +117,17 @@ app.get('/authorize', (req, res) => {
 
                       const uuid = result.data.id.replace(/[^0-9A-Za-z]/gi, '')
 
-                      fs.appendFile(`${home}/msft-verified-users.txt`, `,${uuid}`, (err) => {
-                        if (err) {
-                          res.redirect(`/error_generic.html#${err.message}`)
+                      fs.readFile(`${home}/msft-verified-users.txt`, (err, data) => {
+                        if (err === undefined && data.toString().replaceAll(' ', '').split(',').includes(uuid)) {
+                          res.redirect('/success_once.html')
                         } else {
-                          res.redirect('/success.html')
+                          fs.appendFile(`${home}/msft-verified-users.txt`, `,${uuid}`, (err) => {
+                            if (err) {
+                              res.redirect(`/error_generic.html#${err.message}`)
+                            } else {
+                              res.redirect('/success.html')
+                            }
+                          })
                         }
                       })
                     })
