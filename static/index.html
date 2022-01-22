@@ -37,21 +37,30 @@
       }
 
       .spc {
-        height: 100px;
+        height: calc(70vh - 300px);
         display: block;
+      }
+
+      .spc-tiny {
+        height: 10px;
+        display: block;
+      }
+
+      body {
+        padding: 15px;
       }
     </style>
   </head>
   <body style="margin: 0; font-family: 'Poppins', sans-serif" tabindex="-1">
     <div style="margin-left: auto; margin-right: auto; max-width: 500px">
       <h1>Automatic Account Setup</h1>
-      <p>
-        Click the button below to automatically detect what steps
-        you need to take to connect to our server and update your
-        account settings. This process should take about five minutes,
-        and will keep your account secure & safe from hackers.
-      </p>
-      <div class="spc"></div>
+      <ul>
+        <li>This process should take less than five minutes</li>
+        <li>It will pause if you need to change account settings</li>
+        <li>Automatic setup is secure and respects your data</li>
+        <li>Only your username will be stored on our servers</li>
+      </ul>
+      <div class="spc-tiny"></div>
       <h2>Setup your account:</h2>
       <a
         class="img"
@@ -69,11 +78,10 @@
       </a>
       <div class="spc"></div>
       <h6>
-        When you authorize us to access your account, we can ONLY view
-        information about your account. We use this information to
-        confirm that your Microsoft account is connected. The only
-        information that is stored is your username, to verify that
-        it's you when you log on to our Minecraft server later.
+        When you let us access your account, we can view data
+        like your username. We use this to make sure your account is
+        properly set up. The only information stored is your username, so
+        that you can log on to any server in our network once we check you.
       </h6>
     </div>
   </body>
