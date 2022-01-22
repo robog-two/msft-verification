@@ -196,6 +196,8 @@ app.post('/pushhook', (req, res) => {
   if (signature !== expectedSignature) {
     throw new Error("Invalid signature.");
   } else {
+    res.status(200)
+    res.json({success: true})
     exec('/var/srvupdater/update.sh')
   }
 })
