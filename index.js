@@ -167,6 +167,18 @@ app.get('/authorize', (req, res) => {
     })
 })
 
+app.get('/verify/:uuid', (req, res) => {
+  const uuid = req.params.uuid.replace(/[^0-9A-Za-z]/gi, '')
+
+  fs.readFile(`${home}/msft-verified-users.txt`, (err, data) => {
+    if (err) {
+      res.json({error: err.message})
+    } else {
+      res.json({verified: data.toString().replaceAll(' ', '').split(',').includes(uuid)})
+    }
+  })
+})
+
 app.use(express.static('./static'))
 
 var httpsServer = https.createServer(credentials, app);
