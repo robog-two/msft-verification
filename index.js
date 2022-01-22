@@ -118,7 +118,7 @@ app.get('/authorize', (req, res) => {
                       const uuid = result.data.id.replace(/[^0-9A-Za-z]/gi, '')
 
                       fs.readFile(`${home}/msft-verified-users.txt`, (err, data) => {
-                        if (err === undefined && data.toString().replaceAll(' ', '').split(',').includes(uuid)) {
+                        if (data?.toString()?.replaceAll(' ', '')?.split(',')?.includes(uuid) === true) {
                           res.redirect('/success_once.html')
                           return
                         } else {
