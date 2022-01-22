@@ -26,7 +26,7 @@ const app = express()
 app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
-app.use(bodyParser.text({type: '*/*'}))
+app.use(bodyParser.raw({type: '*/*'}))
 
 app.get('/authorize', (req, res) => {
   const { code, error, error_description } = req.query;
@@ -192,7 +192,7 @@ app.post('/pushhook', (req, res) => {
             .digest("hex");
 
   // compare the signature against the one in the request
-  const signature = req.headers["X-Hub-Signature"];
+  const signature = req.headers["x-hub-signature"];
   if (signature !== expectedSignature) {
     throw new Error("Invalid signature.");
   } else {
