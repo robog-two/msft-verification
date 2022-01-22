@@ -188,7 +188,7 @@ app.post('/pushhook', (req, res) => {
   console.log(req.body)
   const expectedSignature = "sha1=" +
         crypto.createHmac("sha1", WEBHOOK_SECRET)
-            .update(JSON.stringify(req.body))
+            .update(req.body)
             .digest("hex");
 
   // compare the signature against the one in the request
