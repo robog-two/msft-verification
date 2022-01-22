@@ -11,6 +11,7 @@ const { promisify } = require('util')
 const home = require('os').homedir()
 const crypto = require('crypto');
 const { exec } = require('child_process');
+const bodyParser = require('body-parser')
 
 const { WEBHOOK_SECRET } = process.env;
 
@@ -25,7 +26,7 @@ const app = express()
 app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
-app.use(express.raw())
+app.use(bodyParser.text({type: '*/*'}))
 
 app.get('/authorize', (req, res) => {
   const { code, error, error_description } = req.query;
@@ -188,7 +189,7 @@ app.post('/pushhook', (req, res) => {
   console.log(req.body)
   const expectedSignature = "sha1=" +
         crypto.createHmac("sha1", WEBHOOK_SECRET)
-            .update(req.body)
+            .update(req.body.raw)
             .digest("hex");
 
   // compare the signature against the one in the request
