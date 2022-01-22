@@ -185,6 +185,7 @@ app.get('/verify/:uuid', (req, res) => {
 })
 
 app.post('/pushhook', (req, res) => {
+  console.log(req.body)
   const expectedSignature = "sha1=" +
         crypto.createHmac("sha1", WEBHOOK_SECRET)
             .update(JSON.stringify(req.body))
