@@ -185,16 +185,15 @@ app.get('/verify/:uuid', (req, res) => {
 })
 
 app.post('/pushhook', (req, res) => {
-  console.log(WEBHOOK_SECRET)
   const expectedSignature = "sha1=" +
         crypto.createHmac("sha1", WEBHOOK_SECRET)
-            .update(JSON.stringify(request.body))
+            .update(JSON.stringify(req.body))
             .digest("hex");
 
   // compare the signature against the one in the request
-  const signature = request.headers["X-Hub-Signature"];
+  const signature = req.headers["X-Hub-Signature"];
   if (signature !== expectedSignature) {
-      throw new Error("Invalid signature.");
+    throw new Error("Invalid signature.");
   } else {
     exec('/var/srvupdater/update.sh')
   }
