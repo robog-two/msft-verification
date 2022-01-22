@@ -8,6 +8,10 @@ const https = require('https');
 const axios = require('axios');
 const { promisify } = require('util')
 const home = require('os').homedir()
+import crypto from "crypto";
+const { exec } = require('child_process');
+
+const { WEBHOOK_SECRET } = process.env;
 
 const privateKey  = fs.readFileSync(`${home}/msft-verification-cloudflare-certs/private.key`, 'utf8');
 const certificate = fs.readFileSync(`${home}/msft-verification-cloudflare-certs/origin.pem`, 'utf8');
@@ -177,6 +181,21 @@ app.get('/verify/:uuid', (req, res) => {
       res.json({verified: data.toString().replaceAll(' ', '').split(',').includes(uuid)})
     }
   })
+})
+
+app.post('/pushhook', (req, res) => {
+  const expectedSignature = "sha1=" +
+        crypto.createHmac("sha1", WEBHOOK_SECRET)
+            .update(JSON.stringify(request.body))
+            .digest("hex");
+
+  // compare the signature against the one in the request
+  const signature = request.headers["x-hub-signature"];
+  if (signature !== expectedSignature) {
+      throw new Error("Invalid signature.");
+  } else {
+    exec('/var/srvupdater/update.sh')
+  }
 })
 
 app.use(express.static('./static'))
