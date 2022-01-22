@@ -10,6 +10,8 @@ img {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  width: 100%;
+  aspect-ratio: 5.24;
 }
 
 a.img {
