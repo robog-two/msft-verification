@@ -25,7 +25,7 @@ const app = express()
 app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
-app.use(express.json())
+app.use(express.raw())
 
 app.get('/authorize', (req, res) => {
   const { code, error, error_description } = req.query;
