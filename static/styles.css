@@ -31,7 +31,7 @@ a:hover {
 }
 
 .spc {
-  height: calc(70vh - 300px);
+  height: calc(70vmin - 300px);
   display: block;
 }
 
