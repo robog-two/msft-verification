@@ -8,7 +8,7 @@ const https = require('https');
 const axios = require('axios');
 const { promisify } = require('util')
 const home = require('os').homedir()
-import crypto from "crypto";
+const crypto = require('crypto');
 const { exec } = require('child_process');
 
 const { WEBHOOK_SECRET } = process.env;

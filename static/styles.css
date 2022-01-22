@@ -1,0 +1,30 @@
+h1,h2,h3,h4,h5,h6 {
+  text-align: center;
+}
+
+img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+a.img {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+}
+
+
+.spc {
+  height: calc(70vh - 300px);
+  display: block;
+}
+
+.spc-tiny {
+  height: 45px;
+  display: block;
+}
+
+body {
+  padding: 15px;
+}
