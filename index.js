@@ -135,24 +135,35 @@ app.get('/authorize', (req, res) => {
                       })
                     })
                     .catch((error) => {
-                      console.log(error)
-                      res.redirect(`/error_generic.html#${error.message}`)
-                      return;
+                      if (error.response?.data?.error == 'NOT_FOUND') {
+                        res.redirect(`/have_bought.html`)
+                        return;
+                      } else {
+                        res.redirect(`/error_generic.html#${error.message}`)
+                        return;
+                      }
                     })
                 })
                 .catch((error) => {
-                  if (JSON.parse(JSON.stringify(error)).response?.data?.error == 'NOT_FOUND') {
-                    res.redirect(`/have_bought.html`)
-                    return;
-                  } else {
-                    // console.log(error)
-                    res.redirect(`/error_generic.html#${JSON.stringify(error)}`)
-                    return;
+                  switch (error.response?.data?.XErr) {
+                    case '2148916233':
+                      res.redirect(`/error_migrate.html#${error.message}`)
+                      return;
+                    case '2148916235':
+                      res.redirect(`/error_banned.html#${error.message}`)
+                      return;
+                    case '2148916238':
+                      res.redirect(`/error_child.html#${error.message}`)
+                      return;
+                    default:
+                      console.log(error)
+                      res.redirect(`/error_generic.html#${error.message}`)
+                      return;
                   }
                 })
             })
             .catch((error) => {
-              switch (JSON.parse(JSON.stringify(error)).response?.data?.XErr) {
+              switch (error.response?.data?.XErr) {
                 case '2148916233':
                   res.redirect(`/error_migrate.html#${error.message}`)
                   return;
