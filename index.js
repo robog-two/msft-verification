@@ -141,8 +141,7 @@ app.get('/authorize', (req, res) => {
                     })
                 })
                 .catch((error) => {
-                  console.log(error.response)
-                  if (error.response?.data?.error == 'NOT_FOUND') {
+                  if (JSON.parse(JSON.stringify(error)).response?.data?.error == 'NOT_FOUND') {
                     res.redirect(`/have_bought.html`)
                     return;
                   } else {
@@ -153,7 +152,7 @@ app.get('/authorize', (req, res) => {
                 })
             })
             .catch((error) => {
-              switch (error.response?.data?.XErr) {
+              switch (JSON.parse(JSON.stringify(error)).response?.data?.XErr) {
                 case '2148916233':
                   res.redirect(`/error_migrate.html#${error.message}`)
                   return;
