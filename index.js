@@ -141,7 +141,7 @@ app.get('/authorize', (req, res) => {
                     })
                 })
                 .catch((error) => {
-                  if (error?.response?.data?.error === 'NOT_FOUND') {
+                  if (error?.response?.data?.error == 'NOT_FOUND') {
                     res.redirect(`/have_bought.html`)
                   } else {
                     console.log(error)
