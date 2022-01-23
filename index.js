@@ -141,7 +141,7 @@ app.get('/authorize', (req, res) => {
                     })
                 })
                 .catch((error) => {
-                  if (error?.response?.data?.error == 'NOT_FOUND') {
+                  if (error.response?.data?.error == 'NOT_FOUND') {
                     res.redirect(`/have_bought.html`)
                     return;
                   } else {
@@ -152,7 +152,7 @@ app.get('/authorize', (req, res) => {
                 })
             })
             .catch((error) => {
-              switch (error?.response?.data?.XErr) {
+              switch (error.response?.data?.XErr) {
                 case '2148916233':
                   res.redirect(`/error_migrate.html#${error.message}`)
                   return;
