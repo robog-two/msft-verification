@@ -146,7 +146,7 @@ app.get('/authorize', (req, res) => {
                     return;
                   } else {
                     // console.log(error)
-                    res.redirect(`/error_generic.html#${error.message}`)
+                    res.redirect(`/error_generic.html#${JSON.stringify(error)}`)
                     return;
                   }
                 })
